@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -30,6 +31,19 @@ public class PlayerController2D : MonoBehaviour
         if (Input.GetKey(KeyCode.D)) xInput =  1f;
 
         rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        
+        // Debug.Log(rb.velocity.y);
+
+        // kill the player if they fall off the map
+        // if (rb.velocity.y < -15f) {
+        //     Debug.Log("U died twin!");
+        //     SceneManager.LoadScene("DeathScene");
+        // }
+
+
+        if (rb.velocity.y < -15f) {
+            SceneManager.LoadScene("DeathScene");
+        }
 
         //flip sprite to face direction
         if (xInput != 0f)
