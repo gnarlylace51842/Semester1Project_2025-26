@@ -8,6 +8,7 @@ public class PlayerController2D : MonoBehaviour
     public float moveSpeed = 7f;
     public float jumpForce = 11f;
     public float fastFallSpeed = 20f; 
+    public float bounceForce = 15f;
 
     private Rigidbody2D rb;
     private bool isGrounded = false;
@@ -83,13 +84,20 @@ public class PlayerController2D : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.CompareTag("Ground") || other.collider.CompareTag("Platform"))
+        if (other.collider.CompareTag("Ground") || other.collider.CompareTag("Platform")) {
             isGrounded = true;
+
+            if (rb.velocity.y <= 0f) {
+                rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+            }
+        }
     }
 
     void OnCollisionExit2D(Collision2D other)
     {
         if (other.collider.CompareTag("Ground") || other.collider.CompareTag("Platform"))
             isGrounded = false;
+
+            
     }
 }
